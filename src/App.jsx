@@ -1,9 +1,7 @@
 import React from 'react';
 import GlobalStyles from 'styles/GlobalStyles';
 
-// import CompletionBar from 'components/CompletionBar';
 import Form from 'components/Form';
-// import TestForm from 'components/Test';
 
 
 const App = () => {
