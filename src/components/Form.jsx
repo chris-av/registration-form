@@ -1,7 +1,12 @@
 import React, { useReducer, useEffect } from 'react';
 import styled from 'styled-components';
-import { reducer, initialState } from '../state/test.state';
+import { reducer, initialState } from '../state/form.state';
 
+
+
+// components
+import InputGeneric from 'components/InputGeneric';
+import InputPassword from 'components/InputPassword';
 
 const Form = ({ step }) => {
 
@@ -10,6 +15,7 @@ const Form = ({ step }) => {
 
   // handlers and functions
   const handler = (event) => {
+    console.log(event);
     if (event.target.name === 'username') dispatch({ type: 'setUsername', value: event.target.value });
     if (event.target.name === 'password') dispatch({ type: 'setPassword', value: event.target.value });
   }
@@ -23,8 +29,6 @@ const Form = ({ step }) => {
     }
   }, [username, password]);
 
-  const toggleShow = () => dispatch({ type: 'setShowPass' });
-
   // don't need a manual check
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -37,14 +41,8 @@ const Form = ({ step }) => {
 
       <form className="login-form" onSubmit={handleSubmit}>
         <h1>Sign In</h1>
-        <div className="textb">
-          <input type="text" required placeholder="username" onChange={handler} name="username"/>
-        </div>
-
-        <div className="textb">
-          <input type={state.showPass ? 'text' : 'password' } required placeholder="password" onChange={handler} name="password"/>
-          <div className={`show-password fas ${state.showPass ? "fa-eye" : "fa-eye-slash" }`} onClick={toggleShow}></div>
-        </div>
+        <InputGeneric name="username" handler={handler} />
+        <InputPassword handler={handler} />
 
         <div className="checkbox">
           <input type="checkbox"/>
@@ -100,54 +98,6 @@ const Container = styled.div`
       font-size: 36px;
     }
 
-    .textb {
-      margin-bottom: 12px;
-      position: relative;
-
-      input {
-        width: 100%;
-        height: 70px;
-        border: none;
-        background-color: #ededed;
-        border-radius: 4px;
-        color: #333;
-        font-size: 18px;
-        font-weight: 700;
-        padding: 14px 60px 0 10px;
-
-
-        &::placeholder {
-          text-transform: uppercase;
-          font-size: 14px;
-          font-weight: 700;
-          position: absolute;
-          line-height: 70px;
-          top: 0;
-          left: 20px;
-          color: #9d9d9d;
-          transition: top 0.3s ease, font-size 0.3s ease-in;
-        }
-
-        &:focus::placeholder, &:valid::placeholder {
-          left: 10px;
-          top: -16px;
-          font-size: 10px;
-        }
-
-      }
-    }
-
-    .show-password {
-      position: absolute;
-      right: 20px;
-      line-height: 70px;
-      color: #9d9d9d;
-      cursor: pointer;
-      user-select: none;
-      -moz-user-select: none;
-      -khtml-user-select: none;
-      -webkit-user-select: none;
-    }
 
     .checkbox {
       display: flex;
